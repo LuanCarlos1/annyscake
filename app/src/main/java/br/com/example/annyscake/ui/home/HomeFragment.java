@@ -26,6 +26,15 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        //Clique botão
+        binding.botaoMostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText("O texto que eu quiser!");
+            }
+        });
+
         return root;
     }
 
