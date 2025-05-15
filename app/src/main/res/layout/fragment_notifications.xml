@@ -6,17 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
+
     <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/txtMostrar"
+        android:layout_width="343dp"
+        android:layout_height="422dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/vai_aparecer_aqui"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnMostrar"
+        android:layout_width="306dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/mostrar_pedidos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMostrar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Lista de Pedidos</string>
     <string name="title_notifications">Notifications</string>
+    <string name="data_de_entrega">Data de Entrega</string>
+    <string name="nome_do_cliente">Nome do Cliente</string>
+    <string name="valor_do_bolo">Valor do Bolo</string>
+    <string name="recheio_do_bolo">Recheio do Bolo</string>
+    <string name="tamanho_do_bolo">Tamanho do Bolo</string>
+    <string name="tema_do_bolo">Tema do Bolo</string>
+    <string name="cadastrar_pedido">Cadastrar Pedido</string>
+    <string name="logoapp">LogoApp</string>
+    <string name="mostrar_pedido">Mostrar Pedido</string>
+    <string name="vai_aparecer_aqui">Vai aparecer aqui!</string>
+    <string name="mostrar_pedidos">Mostrar Pedidos</string>
 </resources>
