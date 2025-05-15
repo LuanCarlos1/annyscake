@@ -26,6 +26,16 @@ public class DashboardFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        // Vinicius Adicionando o clique do botão
+        binding.botaoMostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText("Olá Anny's Cake!");
+            }
+        });
+        // Fim da adição
+
         return root;
     }
 
