@@ -8,65 +8,73 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import br.com.example.annyscake.databinding.FragmentNotificationsBinding;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import br.com.example.annyscake.R;
+import br.com.example.annyscake.ui.pedido.Pedido;
 
 public class NotificationsFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
-    TextView textPedidoSalvo;
-    Button botaoMostrar;
+    private TextView textPedidos;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        botaoMostrar = binding.btnMostrar;
-        textPedidoSalvo = binding.txtMostrar;
+        Button btnMostrarPedidos = root.findViewById(R.id.btnMostrarPedidos);
+        textPedidos = root.findViewById(R.id.textPedidos);
 
+        btnMostrarPedidos.setOnClickListener(v -> mostrarPedidos());
 
-        botaoMostrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarPedido();
-            }
-        });
-
-
-        return binding.getRoot();
+        return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
 
-    private void mostrarPedido() {
+    private void mostrarPedidos() {
         SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
+        String pedidosStr = prefs.getString("lista_pedidos", "[]");
 
-        String nome = prefs.getString("nome", "Sem nome");
-        String tema = prefs.getString("tema", "Sem tema");
-        String tamanho = prefs.getString("tamanho", "Sem tamanho");
-        String recheio = prefs.getString("recheio", "Sem recheio");
-        String valor = prefs.getString("valor", "Sem valor");
-        String data = prefs.getString("data", "Sem data");
+        try {
+            JSONArray array = new JSONArray(pedidosStr);
+            if (array.length() == 0) {
+                textPedidos.setText("Nenhum pedido encontrado.");
+                return;
+            }
 
-        String pedido = "📦 Pedido Salvo:\n\n"
-                + "Cliente: " + nome + "\n"
-                + "Tema: " + tema + "\n"
-                + "Tamanho: " + tamanho + "cm" + "\n"
-                + "Recheio: " + recheio + "\n"
-                + "Valor: R$" + valor + "\n"
-                + "Entrega: " + data;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+                Pedido pedido = Pedido.fromJSON(obj);
 
-        textPedidoSalvo.setText(pedido);
+                sb.append("📦 Pedido ").append(i + 1).append(":\n")
+                        .append("Cliente: ").append(pedido.nome).append("\n")
+                        .append("Tema: ").append(pedido.tema).append("\n")
+                        .append("Tamanho: ").append(pedido.tamanho).append("\n")
+                        .append("Recheio: ").append(pedido.recheio).append("\n")
+                        .append("Valor: R$").append(pedido.valor).append("\n")
+                        .append("Entrega: ").append(pedido.data).append("\n\n");
+            }
+
+            textPedidos.setText(sb.toString());
+
+        } catch (JSONException e) {
+            textPedidos.setText("Erro ao carregar pedidos.");
+            Toast.makeText(getContext(), "Erro ao carregar pedidos!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

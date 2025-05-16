@@ -14,4 +14,12 @@
     <string name="mostrar_pedido">Mostrar Pedido</string>
     <string name="vai_aparecer_aqui">Vai aparecer aqui!</string>
     <string name="mostrar_pedidos">Mostrar Pedidos</string>
+    <string name="pedidos_aparecer_o_aqui">Pedidos aparecerão aqui...</string>
+    <string name="mostrar_pedidoss">Mostrar Pedidos</string>
+    <string name="nome_do_cliente1">Nome do Cliente</string>
+    <string name="tema_do_bolo1">Tema do Bolo</string>
+    <string name="tamanho_do_bolo1">Tamanho do Bolo</string>
+    <string name="recheio_do_bolo1">Recheio do Bolo</string>
+    <string name="valor_do_bolo1">Valor do Bolo</string>
+    <string name="data_de_entrega1">Data de Entrega</string>
 </resources>

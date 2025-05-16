@@ -1,128 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
     android:backgroundTint="#00FFFFFF"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingTop="0dp"
+    android:padding="0dp"
     tools:context=".ui.home.HomeFragment">
 
-    <EditText
-        android:id="@+id/txtNomeCliente"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="484dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/nome_do_cliente"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtValorBolo"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/valor_do_bolo"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRecheioBolo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtDataEntrega"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/data_de_entrega"
-        android:inputType="datetime"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtValorBolo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtRecheioBolo"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/recheio_do_bolo"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTamanhoBolo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtTamanhoBolo"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/tamanho_do_bolo"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTemaBolo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtTemaBolo"
-        android:layout_width="280dp"
-        android:layout_height="63dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/tema_do_bolo"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeCliente"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-    <Button
-        android:id="@+id/btnCadastrar"
-        android:layout_width="301dp"
-        android:layout_height="64dp"
-        android:text="@string/cadastrar_pedido"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDataEntrega"
-        app:layout_constraintVertical_bias="0.047" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="179dp"
         android:layout_height="139dp"
+        android:layout_gravity="center_horizontal"
         android:adjustViewBounds="false"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
+        android:baselineAlignBottom="false"
         android:contentDescription="@string/logoapp"
+        android:scaleType="centerInside"
         android:src="@drawable/logoannyscake"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAlignment="center" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="357dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtNomeCliente"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/nome_do_cliente1"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/txtTemaBolo"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/tema_do_bolo1"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/txtTamanhoBolo"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/tamanho_do_bolo1"
+                android:inputType="number|numberDecimal" />
+
+            <EditText
+                android:id="@+id/txtRecheioBolo"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/recheio_do_bolo1"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/txtValorBolo"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/valor_do_bolo1"
+                android:inputType="number|numberDecimal" />
+
+            <EditText
+                android:id="@+id/txtDataEntrega"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/data_de_entrega1"
+                android:inputType="datetime" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="301dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/cadastrar_pedido" />
+
+
+</LinearLayout>
