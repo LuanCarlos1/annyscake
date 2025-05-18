@@ -9,14 +9,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 
 import br.com.example.annyscake.R;
 import br.com.example.annyscake.databinding.FragmentHomeBinding;
-import br.com.example.annyscake.ui.dashboard.DashboardFragment;
 
 public class HomeFragment extends Fragment {
 
