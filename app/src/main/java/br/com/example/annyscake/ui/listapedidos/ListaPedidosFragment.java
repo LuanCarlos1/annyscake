@@ -1,5 +1,6 @@
-package br.com.example.annyscake.ui.notifications;
+package br.com.example.annyscake.ui.listapedidos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import org.json.JSONObject;
 import br.com.example.annyscake.R;
 import br.com.example.annyscake.ui.pedido.Pedido;
 
-public class NotificationsFragment extends Fragment {
+public class ListaPedidosFragment extends Fragment {
 
     private TextView textPedidos;
 
@@ -29,7 +30,7 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        View root = inflater.inflate(R.layout.fragment_listapedidos, container, false);
 
         Button btnMostrarPedidos = root.findViewById(R.id.btnMostrarPedidos);
         textPedidos = root.findViewById(R.id.textPedidos);
@@ -45,6 +46,7 @@ public class NotificationsFragment extends Fragment {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void mostrarPedidos() {
         SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
         String pedidosStr = prefs.getString("lista_pedidos", "[]");

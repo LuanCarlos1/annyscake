@@ -28,7 +28,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="357dp">
+        android:layout_height="311dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,47 +43,30 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/nome_do_cliente1"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColorHint="@color/black" />
 
             <EditText
-                android:id="@+id/txtTemaBolo"
+                android:id="@+id/txtTelefone"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/tema_do_bolo1"
-                android:inputType="text" />
+                android:hint="@string/telefone"
+                android:inputType="phone"
+                android:textColorHint="@color/black" />
 
             <EditText
-                android:id="@+id/txtTamanhoBolo"
+                android:id="@+id/txtEndereco"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/tamanho_do_bolo1"
-                android:inputType="number|numberDecimal" />
-
-            <EditText
-                android:id="@+id/txtRecheioBolo"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/recheio_do_bolo1"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/txtValorBolo"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/valor_do_bolo1"
-                android:inputType="number|numberDecimal" />
+                android:hint="@string/endereco"
+                android:inputType="text"
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/txtDataEntrega"
@@ -93,17 +76,20 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/data_de_entrega1"
-                android:inputType="datetime" />
+                android:inputType="datetime"
+                android:textColorHint="@color/black" />
         </LinearLayout>
 
     </ScrollView>
 
     <Button
-        android:id="@+id/btnCadastrar"
-        android:layout_width="301dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/cadastrar_pedido" />
+        android:id="@+id/btnProx"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="@string/proximaPag"
+        android:layout_marginHorizontal="250dp">
+
+    </Button>
 
 
 </LinearLayout>

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">"Anny's Cake"</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Lista de Pedidos</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Cliente</string>
+    <string name="title_dashboard">Bolo</string>
+    <string name="title_notifications">Lista de Pedidos</string>
     <string name="data_de_entrega">Data de Entrega</string>
     <string name="nome_do_cliente">Nome do Cliente</string>
     <string name="valor_do_bolo">Valor do Bolo</string>
@@ -14,7 +14,7 @@
     <string name="mostrar_pedido">Mostrar Pedido</string>
     <string name="vai_aparecer_aqui">Vai aparecer aqui!</string>
     <string name="mostrar_pedidos">Mostrar Pedidos</string>
-    <string name="pedidos_aparecer_o_aqui">Pedidos aparecerão aqui...</string>
+    <string name="pedidos_aparecer_o_aqui">Pedidos aparecerão aqui…</string>
     <string name="mostrar_pedidoss">Mostrar Pedidos</string>
     <string name="nome_do_cliente1">Nome do Cliente</string>
     <string name="tema_do_bolo1">Tema do Bolo</string>
@@ -22,4 +22,11 @@
     <string name="recheio_do_bolo1">Recheio do Bolo</string>
     <string name="valor_do_bolo1">Valor do Bolo</string>
     <string name="data_de_entrega1">Data de Entrega</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="telefone">Telefone</string>
+    <string name="endereco">Endereço</string>
+    <string name="proximaPag">Próximo</string>
+    <string name="anterior">Anterior</string>
 </resources>

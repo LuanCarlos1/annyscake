@@ -1,77 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard2"
+    <EditText
+        android:id="@+id/txtTemaBolo"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:textColorHint="@color/black"
+        android:hint="@string/tema_do_bolo1"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/txtValorBolo"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:textColorHint="@color/black"
+        android:hint="@string/valor_do_bolo1"
+        android:inputType="number|numberDecimal" />
+
+    <Spinner
+        android:id="@+id/spinnerOpcoes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
+        android:layout_height="44dp" />
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left"
-        app:constraint_referenced_ids="text_dashboard2" />
-
-    <!-- TextView para exibir a mensagem -->
-    <TextView
-        android:id="@+id/textMensagem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"/>
-
-    <!-- Botão que ao clicar mostra a mensagem -->
     <Button
-        android:id="@+id/botaoMostrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clique aqui"
-        app:layout_constraintTop_toBottomOf="@+id/textMensagem"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/btnAnterior"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="@string/anterior"
+        android:layout_marginHorizontal="30dp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="301dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/cadastrar_pedido" />
+
+</LinearLayout>

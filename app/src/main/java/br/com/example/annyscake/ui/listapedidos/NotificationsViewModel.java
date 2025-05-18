@@ -1,4 +1,4 @@
-package br.com.example.annyscake.ui.notifications;
+package br.com.example.annyscake.ui.listapedidos;
 
 
 import androidx.lifecycle.ViewModel;

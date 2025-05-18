@@ -7,8 +7,9 @@
 
     <Button
         android:id="@+id/btnMostrarPedidos"
-        android:layout_width="match_parent"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/mostrar_pedidoss" />
 
     <ScrollView

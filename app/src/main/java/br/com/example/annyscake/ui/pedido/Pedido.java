@@ -12,6 +12,14 @@ public class Pedido {
     public String valor;
     public String data;
 
+    public Pedido(String nome, String tema, String valor, String data) {
+        this.nome = nome;
+        this.tema = tema;
+        this.tamanho = tamanho;
+        this.recheio = recheio;
+        this.valor = valor;
+        this.data = data;
+    }
     public Pedido(String nome, String tema, String tamanho, String recheio, String valor, String data) {
         this.nome = nome;
         this.tema = tema;

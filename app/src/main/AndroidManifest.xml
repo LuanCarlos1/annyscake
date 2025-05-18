@@ -12,16 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Annyscake"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:name=".TelaInicialActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
     </application>
 
