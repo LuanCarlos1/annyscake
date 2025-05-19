@@ -20,7 +20,6 @@ import br.com.example.annyscake.databinding.FragmentHomeBinding;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    Button botaoProximaPag;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,15 +28,23 @@ public class HomeFragment extends Fragment {
 
         // Acessa os campos com o binding
         Button botaoProximaPag = binding.btnProx;
-        EditText editNome = binding.txtNomeCliente;
-        EditText editTelefone = binding.txtTelefone;
-        EditText editEndereco = binding.txtEndereco;
-        EditText editDataEntrega = binding.txtDataEntrega;
 
-        // Configura o clique do botão para trocar de fragmento
+        // Navega para o DashboardFragment, passando o bundle
         botaoProximaPag.setOnClickListener(v -> {
+
+            EditText editNome = binding.txtNomeCliente;
+            EditText editTelefone = binding.txtTelefone;
+            EditText editEndereco = binding.txtEndereco;
+            EditText editDataEntrega = binding.txtDataEntrega;
+
+            Bundle bundle = new Bundle();
+            bundle.putString("nome", editNome.getText().toString());
+            bundle.putString("telefone", editTelefone.getText().toString());
+            bundle.putString("endereco", editEndereco.getText().toString());
+            bundle.putString("dataEntrega", editDataEntrega.getText().toString());
+
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.action_homeFragment_to_dashboardFragment);
+            navController.navigate(R.id.action_homeFragment_to_dashboardFragment, bundle);
         });
 
         return binding.getRoot(); // retorna o layout corretamente associado ao binding

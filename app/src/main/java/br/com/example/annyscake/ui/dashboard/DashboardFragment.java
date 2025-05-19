@@ -1,5 +1,7 @@
 package br.com.example.annyscake.ui.dashboard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import br.com.example.annyscake.R;
 import br.com.example.annyscake.databinding.FragmentDashboardBinding;
@@ -28,6 +35,67 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
 
+        Bundle bundle = getArguments();
+        String nome = bundle != null ? bundle.getString("nome") : "";
+        String telefone = bundle != null ? bundle.getString("telefone") : "";
+        String endereco = bundle != null ? bundle.getString("endereco") : "";
+        String dataEntrega = bundle != null ? bundle.getString("dataEntrega") : "";
+
+        Button botaoCadastrar = binding.btnCadastrar;
+
+        botaoCadastrar.setOnClickListener(v -> {
+            String tema = binding.txtTemaBolo.getText().toString();
+            String tamanho = binding.spinnerOpcoes.getSelectedItem().toString();
+            String massa = binding.spinnerMassas.getSelectedItem().toString();
+            String recheio = binding.spinnerRecheios.getSelectedItem().toString();
+            String especial = binding.spinnerRecheiosEspeciais.getSelectedItem().toString();
+            String valor = binding.txtValorBolo.getText().toString();
+
+            if (tema.isEmpty() || valor.isEmpty()
+                    || tamanho.equals("Tamanho do Bolo...")
+                    || massa.equals("Tipos de Massas...")
+                    || recheio.equals("Tipos de Recheios...")
+                    || especial.equals("Recheios Especiais...")) {
+                Toast.makeText(getContext(), "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            JSONObject pedido = new JSONObject();
+            try {
+                pedido.put("nome", nome);
+                pedido.put("telefone", telefone);
+                pedido.put("endereco", endereco);
+                pedido.put("data", dataEntrega);
+                pedido.put("tema", tema);
+                pedido.put("tamanho", tamanho);
+                pedido.put("massa", massa);
+                pedido.put("recheio", recheio);
+                pedido.put("recheio_especial", especial);
+                pedido.put("valor", valor);
+                pedido.put("status", "pendente");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Erro ao criar pedido!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
+            String pedidosExistentes = prefs.getString("lista_pedidos", "[]");
+
+            try {
+                JSONArray array = new JSONArray(pedidosExistentes);
+                array.put(pedido);
+
+                prefs.edit().putString("lista_pedidos", array.toString()).apply();
+                Toast.makeText(getContext(), "Pedido salvo com sucesso!", Toast.LENGTH_SHORT).show();
+
+            } catch (JSONException e) {
+                Toast.makeText(getContext(), "Erro ao salvar pedido!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         Button botaoAnterior = binding.btnAnterior;
         // Configura o clique do botão para trocar de fragmento
         botaoAnterior.setOnClickListener(v -> {
@@ -36,16 +104,16 @@ public class DashboardFragment extends Fragment {
         });
 
         //Spinner com os tamanhos de bolo
-        Spinner spinner = binding.spinnerOpcoes;
+        Spinner spinnerTamanhos = binding.spinnerOpcoes;
         String[] opcoes = {"Tamanho do Bolo...","12cm - Rende 13 fatias", "15cm - Rende 15 a 18 fatias",
                 "18cm - Rende 20 a 22 fatias", "20cm - Rende 30 a 35 fatias", "25cm - Rende 46 a 50 fatias",
                 "30cm - Rende 68 a 72 fatias", "35cm - Rende 92 a 98 fatias", "40cm - Rende 120 a 128 fatias"};
 
 
         ArrayAdapter<String> adapter = getStringArrayAdapter(opcoes);
-        spinner.setAdapter(adapter);
+        spinnerTamanhos.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTamanhos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 if (position == 0) return;
@@ -68,7 +136,7 @@ public class DashboardFragment extends Fragment {
         ArrayAdapter<String> adapterMassas = getStringArrayAdapter(opcoesMassas);
         spinnerMassas.setAdapter(adapterMassas);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerMassas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 if (position == 0) return;
@@ -92,7 +160,7 @@ public class DashboardFragment extends Fragment {
         ArrayAdapter<String> adapterRecheios = getStringArrayAdapter(opcoesRecheios);
         spinnerRecheios.setAdapter(adapterRecheios);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerRecheios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 if (position == 0) return;
@@ -116,7 +184,7 @@ public class DashboardFragment extends Fragment {
         ArrayAdapter<String> adapterEspeciais = getStringArrayAdapter(opcoesEspeciais);
         spinnerEspeciais.setAdapter(adapterEspeciais);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerEspeciais.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 if (position == 0) return;
@@ -134,7 +202,7 @@ public class DashboardFragment extends Fragment {
         return binding.getRoot();
     }
 
-    // Continuação spinner dos tamanhos de bolo
+    // Spinner com primeira opção inativa e cinza
     private ArrayAdapter<String> getStringArrayAdapter(String[] opcoes) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcoes) {
             @Override
@@ -159,81 +227,6 @@ public class DashboardFragment extends Fragment {
         return adapter;
     }
 
-    // Continuação spinner dos tipos de massas
-    private ArrayAdapter<String> getStringArrayAdapterMassas(String[] opcoesMassas) {
-        ArrayAdapter<String> adapterMassas = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcoesMassas) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0; // Desativa a posição 0
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY); // cinza para "Selecione..."
-                } else {
-                    tv.setTextColor(Color.BLACK); // preto para opções válidas
-                }
-                return view;
-            }
-        };
-
-        adapterMassas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapterMassas;
-    }
-
-
-    // Continuação spinner dos Recheios
-    private ArrayAdapter<String> getStringArrayAdapterRecheios(String[] opcoesRecheios) {
-        ArrayAdapter<String> adapterRecheios = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcoesRecheios) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0; // Desativa a posição 0
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY); // cinza para "Selecione..."
-                } else {
-                    tv.setTextColor(Color.BLACK); // preto para opções válidas
-                }
-                return view;
-            }
-        };
-
-        adapterRecheios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapterRecheios;
-    }
-
-    // Continuação spinner dos Recheios Especiais
-    private ArrayAdapter<String> getStringArrayAdapterEspeciais(String[] opcoesEspeciais) {
-        ArrayAdapter<String> adapterEspeciais = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcoesEspeciais) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0; // Desativa a posição 0
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY); // cinza para "Selecione..."
-                } else {
-                    tv.setTextColor(Color.BLACK); // preto para opções válidas
-                }
-                return view;
-            }
-        };
-
-        adapterEspeciais.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapterEspeciais;
-    }
 
     @Override
     public void onDestroyView() {
