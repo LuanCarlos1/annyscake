@@ -3,6 +3,7 @@ package br.com.example.annyscake.ui.listapedidos;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,63 +36,71 @@ public class ListaPedidosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_listapedidos, container, false);
-        LinearLayout layoutPedidos = root.findViewById(R.id.layoutPedidos);
 
         SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
         String pedidosJson = prefs.getString("lista_pedidos", "[]");
 
+        JSONArray pedidosArray;
         try {
-            JSONArray array = new JSONArray(pedidosJson);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject pedidoObj = array.getJSONObject(i);
-                Pedido pedido = Pedido.fromJSON(pedidoObj);
-
-                // Cria um TextView com os detalhes do pedido
-                TextView txt = new TextView(getContext());
-                txt.setText(pedido.nome + " - " + pedido.tema + " - " + pedido.valor);
-
-                // Cria o botão FINALIZAR
-                Button btnFinalizar = new Button(getContext());
-                btnFinalizar.setText("Finalizar");
-
-                // Cria o botão CANCELAR
-                Button btnCancelar = new Button(getContext());
-                btnCancelar.setText("Cancelar");
-
-                // Container horizontal para o texto e botões
-                LinearLayout containerItem = new LinearLayout(getContext());
-                containerItem.setOrientation(LinearLayout.VERTICAL);
-                containerItem.setPadding(16, 16, 16, 16);
-
-                containerItem.addView(txt);
-                containerItem.addView(btnFinalizar);
-                containerItem.addView(btnCancelar);
-
-                layoutPedidos.addView(containerItem);
-
-                // Ação ao clicar em FINALIZAR
-                btnFinalizar.setOnClickListener(v -> {
-                    try {
-                        pedidoObj.put("status", "finalizado");
-                        moverPedido(pedidoObj, "lista_pedidos", "lista_pedidos_finalizados");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                // Ação ao clicar em CANCELAR
-                btnCancelar.setOnClickListener(v -> {
-                    try {
-                        pedidoObj.put("status", "cancelado");
-                        moverPedido(pedidoObj, "lista_pedidos", "lista_pedidos_cancelados");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-
+            pedidosArray = new JSONArray(pedidosJson);
         } catch (JSONException e) {
-            e.printStackTrace();
+            pedidosArray = new JSONArray();
+        }
+
+        LinearLayout layoutPedidos = root.findViewById(R.id.layoutPedidos);
+        layoutPedidos.removeAllViews(); // Limpa antes de preencher
+
+        for (int i = 0; i < pedidosArray.length(); i++) {
+            try {
+                JSONObject obj = pedidosArray.getJSONObject(i);
+                Pedido p = Pedido.fromJSON(obj);
+
+                // Cria um container vertical para cada pedido
+                LinearLayout pedidoLayout = new LinearLayout(requireContext());
+                pedidoLayout.setOrientation(LinearLayout.VERTICAL);
+                pedidoLayout.setPadding(16, 16, 16, 16);
+                pedidoLayout.setBackgroundColor(Color.parseColor("#FDE4EC"));
+
+                // Cria um TextView com todas as informações
+                TextView txt = new TextView(requireContext());
+                txt.setText("📦 Pedido " + (i + 1) + ":\n"
+                        + "Cliente: " + p.nome + "\n"
+                        + "Telefone: " + p.telefone + "\n"
+                        + "Endereço: " + p.endereco + "\n"
+                        + "Data de Entrega: " + p.data + "\n"
+                        + "Tema: " + p.tema + "\n"
+                        + "Tamanho: " + p.tamanho + "\n"
+                        + "Massa: " + p.massa + "\n"
+                        + "Recheio: " + p.recheio + "\n"
+                        + "Recheio Especial: " + p.recheio_especial + "\n"
+                        + "Valor: R$ " + p.valor);
+                pedidoLayout.addView(txt);
+
+                // Botão Finalizar
+                Button btnFinalizar = new Button(requireContext());
+                btnFinalizar.setText("Finalizar");
+                pedidoLayout.addView(btnFinalizar);
+
+                // Botão Cancelar
+                Button btnCancelar = new Button(requireContext());
+                btnCancelar.setText("Cancelar");
+                pedidoLayout.addView(btnCancelar);
+
+//                // Lógica de clique
+//                int finalI = i;
+//                btnFinalizar.setOnClickListener(v -> {
+//                    moverPedidoParaStatus(pedidosArray, finalI, "finalizado");
+//                });
+//
+//                btnCancelar.setOnClickListener(v -> {
+//                    moverPedidoParaStatus(pedidosArray, finalI, "cancelado");
+//                });
+
+                layoutPedidos.addView(pedidoLayout);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         return root;
@@ -176,4 +187,29 @@ public class ListaPedidosFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+//    private void moverPedidoParaStatus(JSONArray arrayOriginal, int index, String status) {
+//        try {
+//            JSONObject pedido = arrayOriginal.getJSONObject(index);
+//            pedido.put("status", status);
+//
+//            // Salva em nova lista de status
+//            SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
+//            String jsonDestino = prefs.getString("pedidos_" + status, "[]");
+//            JSONArray arrayDestino = new JSONArray(jsonDestino);
+//
+//            arrayDestino.put(pedido);
+//            prefs.edit().putString("pedidos_" + status, arrayDestino.toString()).apply();
+//
+//            // Remove da lista original
+//            arrayOriginal.remove(index);
+//            prefs.edit().putString("lista_pedidos", arrayOriginal.toString()).apply();
+//
+//            // Recarrega o fragmento
+//            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+//            navController.navigate(R.id.listaPedidosFragment); // navega para o próprio fragmento
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
