@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#FAD6E5</color>
+    <color name="fundo_finalizado">#D0F5D8</color> <!-- verde claro -->
+    <color name="fundo_cancelado">#FFD6D6</color>  <!-- vermelho claro -->
 </resources>

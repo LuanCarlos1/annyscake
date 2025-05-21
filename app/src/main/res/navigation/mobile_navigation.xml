@@ -29,4 +29,10 @@
         android:name="br.com.example.annyscake.ui.listapedidos.ListaPedidosFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_listapedidos" />
+
+    <fragment
+        android:id="@+id/navigation_historico"
+        android:name="br.com.example.annyscake.ui.historico.Historico"
+        android:label="Histórico de Pedidos" />
+
 </navigation>

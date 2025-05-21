@@ -180,7 +180,6 @@ public class DashboardFragment extends Fragment {
         Spinner spinnerEspeciais = binding.spinnerRecheiosEspeciais;
         String[] opcoesEspeciais = {"Recheios Especiais...", "Abacaxi", "Ameixa", "Amendoin", "Maracujá", "Surpresa de Uva", "Doce de Leite", "Sonho de Valsa"};
 
-
         ArrayAdapter<String> adapterEspeciais = getStringArrayAdapter(opcoesEspeciais);
         spinnerEspeciais.setAdapter(adapterEspeciais);
 

@@ -16,5 +16,10 @@
         android:icon="@drawable/file_paper_2_fill"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/navigation_historico"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_historico" />
+
 </menu>
 
