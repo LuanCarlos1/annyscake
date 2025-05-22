@@ -23,9 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
 import br.com.example.annyscake.R;
-import br.com.example.annyscake.ui.historico.Historico;
 import br.com.example.annyscake.ui.pedido.Pedido;
 
 public class ListaPedidosFragment extends Fragment {
@@ -93,10 +91,7 @@ public class ListaPedidosFragment extends Fragment {
                             .setMessage("Tem certeza que deseja finalizar este pedido?")
                             .setPositiveButton("Sim", (dialog, which) -> {
                                 moverPedidoParaStatus(finalPedidosArray, finalI, "finalizados");
-                                // Atualiza a lista de pedidos recarregando o próprio fragmento
-                                requireActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.layoutPedidos, new ListaPedidosFragment())
-                                        .commit();
+                                layoutPedidos.removeAllViews(); // Limpa antes de preencher
                             })
                             .setNegativeButton("Cancelar", null)
                             .show();
@@ -110,10 +105,7 @@ public class ListaPedidosFragment extends Fragment {
                             .setMessage("Tem certeza que deseja cancelar este pedido?")
                             .setPositiveButton("Sim", (dialog, which) -> {
                                 moverPedidoParaStatus(finalPedidosArray1, finalI, "cancelados");
-                                // Atualiza a lista de pedidos recarregando o próprio fragmento
-                                requireActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.layoutPedidos, new ListaPedidosFragment())
-                                        .commit();
+                                layoutPedidos.removeAllViews(); // Limpa antes de preencher
                             })
                             .setNegativeButton("Cancelar", null)
                             .show();
@@ -128,7 +120,6 @@ public class ListaPedidosFragment extends Fragment {
 
         return root;
     }
-
 
     private void moverPedidoParaStatus(JSONArray arrayOriginal, int index, String status) {
         try {
