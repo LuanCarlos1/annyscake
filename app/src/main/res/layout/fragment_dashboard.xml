@@ -16,7 +16,7 @@
         <EditText
             android:id="@+id/txtTemaBolo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/tema_do_bolo1"
             android:textColorHint="@color/black"
             android:inputType="text" />
@@ -24,32 +24,32 @@
         <Spinner
             android:id="@+id/spinnerOpcoes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:forceDarkAllowed="false" />
 
         <Spinner
             android:id="@+id/spinnerMassas"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/spinnerRecheios"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/spinnerRecheiosEspeciais"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/txtValorBolo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/valor_do_bolo1"
             android:textColorHint="@color/black"
             android:inputType="numberDecimal"
