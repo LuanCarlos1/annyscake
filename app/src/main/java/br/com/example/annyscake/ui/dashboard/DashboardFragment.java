@@ -1,7 +1,8 @@
 package br.com.example.annyscake.ui.dashboard;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,12 +20,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import br.com.example.annyscake.R;
 import br.com.example.annyscake.databinding.FragmentDashboardBinding;
+import br.com.example.annyscake.ui.pedido.Pedido;
 
 public class DashboardFragment extends Fragment {
 
@@ -34,6 +33,8 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Bundle bundle = getArguments();
         String nome = bundle != null ? bundle.getString("nome") : "";
@@ -60,38 +61,18 @@ public class DashboardFragment extends Fragment {
                 return;
             }
 
-            JSONObject pedido = new JSONObject();
-            try {
-                pedido.put("nome", nome);
-                pedido.put("telefone", telefone);
-                pedido.put("endereco", endereco);
-                pedido.put("data", dataEntrega);
-                pedido.put("tema", tema);
-                pedido.put("tamanho", tamanho);
-                pedido.put("massa", massa);
-                pedido.put("recheio", recheio);
-                pedido.put("recheio_especial", especial);
-                pedido.put("valor", valor);
-                pedido.put("status", "pendente");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), "Erro ao criar pedido!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            // Criar o objeto do pedido
+            Pedido pedido = new Pedido(nome, telefone, endereco, dataEntrega, tema, tamanho, massa, recheio, especial, valor, "pendente");
 
-            SharedPreferences prefs = requireActivity().getSharedPreferences("Pedidos", Context.MODE_PRIVATE);
-            String pedidosExistentes = prefs.getString("lista_pedidos", "[]");
-
-            try {
-                JSONArray array = new JSONArray(pedidosExistentes);
-                array.put(pedido);
-
-                prefs.edit().putString("lista_pedidos", array.toString()).apply();
-                Toast.makeText(getContext(), "Pedido salvo com sucesso!", Toast.LENGTH_SHORT).show();
-
-            } catch (JSONException e) {
-                Toast.makeText(getContext(), "Erro ao salvar pedido!", Toast.LENGTH_SHORT).show();
-            }
+            db.collection("pedidos")
+                    .add(pedido)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(getContext(), "Pedido salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Erro ao salvar pedido!", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    });
         });
 
 

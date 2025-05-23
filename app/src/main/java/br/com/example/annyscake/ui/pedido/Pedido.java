@@ -1,32 +1,23 @@
 package br.com.example.annyscake.ui.pedido;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class Pedido {
-    public String nome;
-    public String telefone;
-    public String endereco;
-    public String data;
-    public String tema;
-    public String tamanho;
-    public String massa;
-    public String recheio;
-    public String recheio_especial;
-    public String valor;
+    public String nome, telefone, endereco, data, tema, tamanho, massa, recheio, recheio_especial, valor, status;
 
-    public static Pedido fromJSON(JSONObject obj) throws JSONException {
-        Pedido p = new Pedido();
-        p.nome = obj.getString("nome");
-        p.telefone = obj.getString("telefone");
-        p.endereco = obj.getString("endereco");
-        p.data = obj.getString("data");
-        p.tema = obj.getString("tema");
-        p.tamanho = obj.getString("tamanho");
-        p.massa = obj.getString("massa");
-        p.recheio = obj.getString("recheio");
-        p.recheio_especial = obj.getString("recheio_especial");
-        p.valor = obj.getString("valor");
-        return p;
+    public Pedido() {} // Necessário para Firestore
+
+    public Pedido(String nome, String telefone, String endereco, String data, String tema,
+                  String tamanho, String massa, String recheio, String recheio_especial,
+                  String valor, String status) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.data = data;
+        this.tema = tema;
+        this.tamanho = tamanho;
+        this.massa = massa;
+        this.recheio = recheio;
+        this.recheio_especial = recheio_especial;
+        this.valor = valor;
+        this.status = status;
     }
 }
