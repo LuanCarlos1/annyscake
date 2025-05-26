@@ -45,7 +45,9 @@ public class HomeFragment extends Fragment {
 
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
             navController.navigate(R.id.action_homeFragment_to_dashboardFragment, bundle);
+
         });
+
 
         return binding.getRoot(); // retorna o layout corretamente associado ao binding
     }
