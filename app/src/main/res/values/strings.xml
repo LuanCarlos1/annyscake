@@ -41,4 +41,7 @@
     <string name="cadastre_se">Cadastre-se</string>
     <string name="nome">Nome</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="deslogar">Deslogar</string>
+    <string name="email_do_usuario">Email do Usuário</string>
+    <string name="nome_do_usuario">Nome do Usuário</string>
 </resources>
