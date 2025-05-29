@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".TelaCadastro">
+
+    <TextView
+        android:id="@+id/txtCadastrese"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:text="@string/cadastre_se"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/viewcadastrese"
+        app:layout_constraintTop_toBottomOf="@+id/txtCadastrese"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="300dp"
+        style="@style/containerComponents"/>
+
+    <EditText
+        android:id="@+id/editNomeCadastro"
+        style="@style/edit_text"
+        android:autofillHints=""
+        android:inputType="textEmailAddress"
+        android:drawableEnd="@drawable/user_fill24dp"
+        android:drawableTint="@color/gray"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewcadastrese"
+        android:hint="@string/nome"/>
+
+    <EditText
+        android:id="@+id/editTelefoneCadastro"
+        style="@style/edit_text"
+        android:autofillHints=""
+        android:inputType="textEmailAddress"
+        android:drawableEnd="@drawable/phone_fill"
+        android:drawableTint="@color/gray"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNomeCadastro"
+        android:hint="@string/telefone"/>
+
+    <EditText
+        android:id="@+id/editEmailCadastro"
+        style="@style/edit_text"
+        android:autofillHints=""
+        android:inputType="textEmailAddress"
+        android:drawableEnd="@drawable/mail_fill"
+        android:drawableTint="@color/gray"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTelefoneCadastro"
+        android:hint="@string/email"/>
+
+    <EditText
+        android:id="@+id/editSenhaCadastro"
+        style="@style/edit_text"
+        android:autofillHints=""
+        android:inputType="textEmailAddress"
+        android:drawableEnd="@drawable/eye_fill"
+        android:drawableTint="@color/gray"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEmailCadastro"
+        android:hint="@string/senha"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/button"
+        android:text="@string/cadastrar"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/viewcadastrese"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

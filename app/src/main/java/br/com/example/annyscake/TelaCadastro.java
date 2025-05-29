@@ -1,8 +1,6 @@
 package br.com.example.annyscake;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,26 +10,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Objects;
 
-public class TelaLogin extends AppCompatActivity {
-
+public class TelaCadastro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_tela_login);
-
-        TextView criarConta = findViewById(R.id.txtTelaCadastro);
+        setContentView(R.layout.activity_tela_cadastro);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
-
-        criarConta.setOnClickListener(v -> {
-            Intent mudarParaCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
-            startActivity(mudarParaCadastro);
-        });
-
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

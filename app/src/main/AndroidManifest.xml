@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Annyscake"
         tools:targetApi="31">
         <activity
+            android:name=".TelaCadastro"
+            android:exported="false" />
+        <activity
             android:name=".TelaLogin"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
