@@ -54,7 +54,7 @@ public class ListaPedidosFragment extends Fragment {
                     LinearLayout pedidoLayout = new LinearLayout(requireContext());
                     pedidoLayout.setOrientation(LinearLayout.VERTICAL);
                     pedidoLayout.setPadding(16, 16, 16, 16);
-                    pedidoLayout.setBackgroundColor(Color.parseColor("#FDE4EC"));
+//                    pedidoLayout.setBackgroundColor(Color.parseColor("#FDE4EC"));
 
                     TextView txt = new TextView(requireContext());
                     txt.setText("📦 Pedido:\n"

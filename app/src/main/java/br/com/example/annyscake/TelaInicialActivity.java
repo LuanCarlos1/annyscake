@@ -22,7 +22,7 @@ public class TelaInicialActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(16441125);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent moverParaAMain = new Intent(TelaInicialActivity.this, MainActivity.class);
+            Intent moverParaAMain = new Intent(TelaInicialActivity.this, TelaLogin.class);
             startActivity(moverParaAMain);
             // Adicionar transição suave opcional
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

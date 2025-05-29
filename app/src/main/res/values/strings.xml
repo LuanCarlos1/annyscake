@@ -33,4 +33,9 @@
     <string name="lista_de_pedidos_finalizados_ou_cancelados">Lista de pedidos finalizados ou cancelados</string>
     <string name="lista_de_pedidos">lista de pedidos</string>
     <string name="limpar">Button</string>
+    <string name="lista_de_pedidos_top">Lista de Pedidos</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="crie_uma_conta_clicando_aqui">Crie uma conta clicando aqui</string>
 </resources>

@@ -14,17 +14,17 @@
         android:textColor="#FFFFFF"
         android:visibility="gone" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="503dp"
+        android:layout_height="524dp"
         android:layout_weight="0">
 
         <LinearLayout
             android:id="@+id/layoutPedidosFinalizados"
+            style="@style/containerComponents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
-    </ScrollView>
-
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

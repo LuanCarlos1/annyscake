@@ -1,95 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
     android:backgroundTint="#00FFFFFF"
-    android:gravity="top"
     android:orientation="vertical"
-    android:paddingTop="0dp"
     android:padding="0dp"
+    android:paddingTop="0dp"
     tools:context=".ui.home.HomeFragment">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="179dp"
-        android:layout_height="139dp"
-        android:layout_gravity="center_horizontal"
-        android:adjustViewBounds="false"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF"
         android:baselineAlignBottom="false"
         android:contentDescription="@string/logoapp"
         android:scaleType="centerInside"
         android:src="@drawable/logoannyscake"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="311dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <View
+        android:id="@+id/containerComponents"
+        style="@style/containerComponents"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-            <EditText
-                android:id="@+id/txtNomeCliente"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/nome_do_cliente1"
-                android:inputType="text"
-                android:textColorHint="@color/black" />
+    <EditText
+        android:id="@+id/txtNomeCliente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/containerComponents"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/nome_do_cliente1"
+        android:inputType="text"
+        android:textColorHint="@color/black" />
 
-            <EditText
-                android:id="@+id/txtTelefone"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/telefone"
-                android:inputType="phone"
-                android:textColorHint="@color/black" />
+    <EditText
+        android:id="@+id/txtTelefone"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeCliente"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/telefone"
+        android:inputType="phone"
+        android:textColorHint="@color/black" />
 
-            <EditText
-                android:id="@+id/txtEndereco"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/endereco"
-                android:inputType="text"
-                android:textColorHint="@color/black" />
+    <EditText
+        android:id="@+id/txtEndereco"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/endereco"
+        android:inputType="text"
+        android:textColorHint="@color/black" />
 
-            <EditText
-                android:id="@+id/txtDataEntrega"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/data_de_entrega1"
-                android:inputType="datetime"
-                android:textColorHint="@color/black" />
-        </LinearLayout>
-
-    </ScrollView>
+    <EditText
+        android:id="@+id/txtDataEntrega"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco"
+        android:layout_gravity="center_horizontal"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/data_de_entrega1"
+        android:inputType="datetime"
+        android:textColorHint="@color/black" />
 
     <Button
         android:id="@+id/btnProx"
+        android:padding="15dp"
         android:layout_width="130dp"
         android:layout_height="60dp"
+        android:layout_marginHorizontal="250dp"
+        android:layout_marginStart="224dp"
         android:text="@string/proximaPag"
-        android:layout_marginHorizontal="250dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerComponents"
+        android:layout_marginTop="10dp"/>
 
-    </Button>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
