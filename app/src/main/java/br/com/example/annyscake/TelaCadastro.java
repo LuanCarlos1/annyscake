@@ -1,5 +1,6 @@
 package br.com.example.annyscake;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,6 +98,11 @@ public class TelaCadastro extends AppCompatActivity {
                 snackbar.setTextColor(Color.BLACK);
                 snackbar.setAnchorView(txtCadastro);
                 snackbar.show();
+
+                Intent intent = new Intent(TelaCadastro.this, TelaLogin.class);
+                startActivity(intent);
+                finish();
+
             }else{
                 String erro;
                 try {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "36969557794",
+    "project_id": "sadasdad-7d3aa",
+    "storage_bucket": "sadasdad-7d3aa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36969557794:android:f9a77a2ddb190b65a6ff7b",
+        "android_client_info": {
+          "package_name": "br.com.example.annyscake"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1UBhky-Cy3Dy2pX4vLRGcQCSN3T9Y0X4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

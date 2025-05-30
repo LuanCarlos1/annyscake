@@ -39,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/containerUsuario"/>
     
     <TextView
+        android:id="@+id/miniNome"
         app:layout_constraintStart_toEndOf="@+id/iconMiniUsuario"
         app:layout_constraintTop_toBottomOf="@+id/containerUsuario"
         android:layout_marginTop="35dp"
@@ -61,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/iconMiniUsuario"/>
 
     <TextView
+        android:id="@+id/miniEmail"
         app:layout_constraintStart_toEndOf="@+id/iconMiniEmail"
         app:layout_constraintTop_toBottomOf="@+id/iconMiniUsuario"
         android:layout_marginTop="25dp"

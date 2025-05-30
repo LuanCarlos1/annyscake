@@ -39,7 +39,7 @@ public class TelaLogin extends AppCompatActivity {
 
         iniciarComponentes();
 
-         setCriarConta(findViewById(R.id.txtTelaCadastro));
+        setCriarConta(findViewById(R.id.txtTelaCadastro));
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
@@ -62,6 +62,7 @@ public class TelaLogin extends AppCompatActivity {
         criarConta.setOnClickListener(v -> {
             Intent mudarParaCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
             startActivity(mudarParaCadastro);
+            finish();
         });
 
 
@@ -109,7 +110,7 @@ public class TelaLogin extends AppCompatActivity {
     }
 
     private void moverParaPrincipal(){
-        Intent intent = new Intent(TelaLogin.this, MainActivity.class);
+        Intent intent = new Intent(TelaLogin.this, TelaUsuario.class);
         startActivity(intent);
         finish();
     }
