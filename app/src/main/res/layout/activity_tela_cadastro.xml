@@ -41,7 +41,7 @@
         android:id="@+id/editNomeCadastro"
         style="@style/edit_text"
         android:autofillHints=""
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:drawableEnd="@drawable/user_fill24dp"
         android:drawableTint="@color/gray"
         android:padding="15dp"
@@ -57,7 +57,7 @@
         android:id="@+id/editTelefoneCadastro"
         style="@style/edit_text"
         android:autofillHints=""
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:drawableEnd="@drawable/phone_fill"
         android:drawableTint="@color/gray"
         android:padding="15dp"
@@ -73,7 +73,7 @@
         android:id="@+id/editEnderecoCadastro"
         style="@style/edit_text"
         android:autofillHints=""
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:drawableEnd="@drawable/eye_fill"
         android:drawableTint="@color/gray"
         android:padding="15dp"
@@ -105,7 +105,7 @@
         android:id="@+id/editSenhaCadastro"
         style="@style/edit_text"
         android:autofillHints=""
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:drawableEnd="@drawable/eye_fill"
         android:drawableTint="@color/gray"
         android:padding="15dp"
@@ -119,6 +119,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Cadastrar"
         style="@style/button"
         android:text="@string/cadastrar"
         android:textAllCaps="false"
@@ -126,7 +127,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/viewcadastrese"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
