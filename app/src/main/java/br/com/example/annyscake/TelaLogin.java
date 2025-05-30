@@ -39,13 +39,13 @@ public class TelaLogin extends AppCompatActivity {
 
         iniciarComponentes();
 
-        setCriarConta(findViewById(R.id.txtTelaCadastro));
+        criarConta = findViewById(R.id.txtTelaCadastro);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        getEntrar().setOnClickListener(v -> {
-            String email = getEditEmail().getText().toString();
-            String senha = getEditSenha().getText().toString();
+        entrar.setOnClickListener(v -> {
+            String email = editEmail.getText().toString();
+            String senha = editSenha.getText().toString();
 
             if (email.isEmpty() || senha.isEmpty()){
                 Snackbar snackbar = Snackbar.make(v,mensagens[0],Snackbar.LENGTH_SHORT);
@@ -62,7 +62,6 @@ public class TelaLogin extends AppCompatActivity {
         criarConta.setOnClickListener(v -> {
             Intent mudarParaCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
             startActivity(mudarParaCadastro);
-            finish();
         });
 
 
@@ -74,12 +73,12 @@ public class TelaLogin extends AppCompatActivity {
     }
 
     private void autenticarUsuario(View v){
-        String email = getEditEmail().getText().toString();
-        String senha = getEditSenha().getText().toString();
+        String email = editEmail.getText().toString();
+        String senha = editSenha.getText().toString();
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                getProgressBar().setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
                 new Handler(Looper.getMainLooper()).postDelayed(this::moverParaPrincipal,2000);
             }else {
@@ -92,7 +91,7 @@ public class TelaLogin extends AppCompatActivity {
                 Snackbar snackbar = Snackbar.make(v,erro,Snackbar.LENGTH_SHORT);
                 snackbar.setBackgroundTint(Color.WHITE);
                 snackbar.setTextColor(Color.BLACK);
-                snackbar.setAnchorView(getCriarConta());
+                snackbar.setAnchorView(criarConta);
                 snackbar.show();
             }
         });
@@ -112,53 +111,12 @@ public class TelaLogin extends AppCompatActivity {
     private void moverParaPrincipal(){
         Intent intent = new Intent(TelaLogin.this, TelaUsuario.class);
         startActivity(intent);
-        finish();
     }
 
     private void iniciarComponentes(){
-        setEditEmail(findViewById(R.id.editEmail));
-        setEditSenha(findViewById(R.id.editSenha));
-        setEntrar(findViewById(R.id.btnEntrar));
-        setProgressBar(findViewById(R.id.progressbar));
-    }
-
-    public EditText getEditEmail() {
-        return editEmail;
-    }
-
-    public void setEditEmail(EditText editEmail) {
-        this.editEmail = editEmail;
-    }
-
-    public EditText getEditSenha() {
-        return editSenha;
-    }
-
-    public void setEditSenha(EditText editSenha) {
-        this.editSenha = editSenha;
-    }
-
-    public Button getEntrar() {
-        return entrar;
-    }
-
-    public void setEntrar(Button entrar) {
-        this.entrar = entrar;
-    }
-
-    public ProgressBar getProgressBar() {
-        return progressBar;
-    }
-
-    public void setProgressBar(ProgressBar progressBar) {
-        this.progressBar = progressBar;
-    }
-
-    public TextView getCriarConta() {
-        return criarConta;
-    }
-
-    public void setCriarConta(TextView criarConta) {
-        this.criarConta = criarConta;
+        editEmail = findViewById(R.id.editEmail);
+        editSenha = findViewById(R.id.editSenha);
+        entrar = findViewById(R.id.btnEntrar);
+        progressBar = findViewById(R.id.progressbar);
     }
 }

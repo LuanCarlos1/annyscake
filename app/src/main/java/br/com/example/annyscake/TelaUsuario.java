@@ -36,7 +36,7 @@ public class TelaUsuario extends AppCompatActivity {
         inicializarComponentes();
 
 
-        getBtnDeslogar().setOnClickListener(v -> {
+        btnDeslogar.setOnClickListener(v -> {
 
             FirebaseAuth.getInstance().signOut();
 
@@ -65,39 +65,15 @@ public class TelaUsuario extends AppCompatActivity {
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
         documentReference.addSnapshotListener((documentSnapshot, error) -> {
             if(documentSnapshot != null){
-                getNomeUsuario().setText(documentSnapshot.getString("nome"));
-                getEmailUsuario().setText(email);
+                nomeUsuario.setText(documentSnapshot.getString("nome"));
+                emailUsuario.setText(email);
             }
         });
     }
 
     private void inicializarComponentes(){
-        setNomeUsuario(findViewById(R.id.miniNome));
-        setEmailUsuario(findViewById(R.id.miniEmail));
-        setBtnDeslogar(findViewById(R.id.btnDeslogar));
-    }
-
-    public TextView getEmailUsuario() {
-        return emailUsuario;
-    }
-
-    public void setEmailUsuario(TextView emailUsuario) {
-        this.emailUsuario = emailUsuario;
-    }
-
-    public TextView getNomeUsuario() {
-        return nomeUsuario;
-    }
-
-    public void setNomeUsuario(TextView nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
-
-    public Button getBtnDeslogar() {
-        return btnDeslogar;
-    }
-
-    public void setBtnDeslogar(Button btnDeslogar) {
-        this.btnDeslogar = btnDeslogar;
+        nomeUsuario = findViewById(R.id.miniNome);
+        emailUsuario = findViewById(R.id.miniEmail);
+        btnDeslogar = findViewById(R.id.btnDeslogar);
     }
 }
