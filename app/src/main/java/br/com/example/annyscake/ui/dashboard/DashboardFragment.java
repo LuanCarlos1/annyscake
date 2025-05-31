@@ -1,7 +1,7 @@
 package br.com.example.annyscake.ui.dashboard;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -66,9 +66,7 @@ public class DashboardFragment extends Fragment {
 
             db.collection("pedidos")
                     .add(pedido)
-                    .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(getContext(), "Pedido salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                    })
+                    .addOnSuccessListener(documentReference -> Toast.makeText(getContext(), "Pedido salvo com sucesso!", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> {
                         Toast.makeText(getContext(), "Erro ao salvar pedido!", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();

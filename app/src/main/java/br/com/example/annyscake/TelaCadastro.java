@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -59,6 +58,7 @@ public class TelaCadastro extends AppCompatActivity {
             String endereco = editEndereco.getText().toString();
             String email = editEmail.getText().toString();
             String senha = editSenha.getText().toString();
+
 
             if(nome.isEmpty() || telefone.isEmpty() || endereco.isEmpty() || email.isEmpty() || senha.isEmpty()){
                 Snackbar snackbar = Snackbar.make(v, mensagens[0],Snackbar.LENGTH_SHORT);

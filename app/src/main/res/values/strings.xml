@@ -44,4 +44,6 @@
     <string name="deslogar">Deslogar</string>
     <string name="email_do_usuario">Email do Usuário</string>
     <string name="nome_do_usuario">Nome do Usuário</string>
+    <string name="bem_vindo">Olá, Suanne!</string>
+    <string name="voc_tem_pedidos">Você tem ... pedidos.</string>
 </resources>
