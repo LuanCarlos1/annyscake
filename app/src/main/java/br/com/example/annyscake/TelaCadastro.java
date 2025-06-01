@@ -1,7 +1,10 @@
 package br.com.example.annyscake;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +37,7 @@ public class TelaCadastro extends AppCompatActivity {
     private TextView txtCadastro;
     String [] mensagens = {"Preencha todos os campos", "Cadastro realizado com sucesso"};
     String usuarioId;
+    boolean logado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,11 @@ public class TelaCadastro extends AppCompatActivity {
                 snackbar.show();
             }else{
                 cadastrarUsuario(v);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    Intent intent = new Intent(this, TelaLogin.class);
+                    startActivity(intent);
+                    finish();
+                }, 3000);
             }
         });
     }
@@ -133,10 +142,11 @@ public class TelaCadastro extends AppCompatActivity {
         usuarios.put("nome", nome);
         usuarios.put("telefone", telefone);
         usuarios.put("endereco", endereco);
+        usuarios.put("logado", logado);
 
         usuarioId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
+        DocumentReference documentReference = db.collection("usuarios").document(usuarioId);
         documentReference.set(usuarios).addOnSuccessListener(unused -> Log.d("db", "Sucesso ao salvar os dados")).addOnFailureListener(e -> Log.d("db_error", "Erro ao salvar os dados" + e));
     }
 

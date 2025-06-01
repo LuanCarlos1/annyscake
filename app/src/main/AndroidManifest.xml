@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Annyscake"
         tools:targetApi="31">
         <activity
+            android:name=".TelaCliente"
+            android:exported="false" />
+        <activity
             android:name=".TelaAdmin"
             android:exported="false" />
         <activity

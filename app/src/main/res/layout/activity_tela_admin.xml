@@ -1,77 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context=".TelaAdmin">
 
-
-    <ImageView
-        android:id="@+id/logoTelaAdmin"
-        android:src="@drawable/logoannyscake"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
-
-    <View
-        android:id="@+id/viewHomeAdmin"
-        style="@style/containerComponents"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoTelaAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-
-    <TextView
-        android:id="@+id/editBoasVindas"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewHomeAdmin"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="@string/bem_vindo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBoasVindas"
-        android:layout_marginTop="10dp"
-        android:text="@string/voc_tem_pedidos"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/txtRelogio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/viewHomeAdmin"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/gray"
-        />
-
-    <Button
-        android:id="@+id/btnIrTelaDeslogar"
-        android:text="Tela Sair"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewHomeAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

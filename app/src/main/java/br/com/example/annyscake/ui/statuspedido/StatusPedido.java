@@ -1,4 +1,4 @@
-package br.com.example.annyscake.ui;
+package br.com.example.annyscake.ui.statuspedido;
 
 import android.os.Bundle;
 
@@ -10,20 +10,15 @@ import android.view.ViewGroup;
 
 import br.com.example.annyscake.R;
 
+public class StatusPedido extends Fragment {
 
-public class LoginFragment extends Fragment {
+    public StatusPedido() {
 
-    public LoginFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
-
-
-
+        return inflater.inflate(R.layout.fragment_status_pedido, container, false);
     }
 }

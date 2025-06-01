@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.Objects;
@@ -61,6 +63,7 @@ public class TelaLogin extends AppCompatActivity {
             }else {
                 autenticarUsuario(v);
             }
+
         });
 
 
@@ -83,56 +86,49 @@ public class TelaLogin extends AppCompatActivity {
 
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnSuccessListener(authResult -> {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    String uid = user.getUid();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference docRef = db.collection("usuarios").document(uid);
 
-                if(email.equals("suanne@gmail.com")){
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    new Handler(Looper.getMainLooper()).postDelayed(this::moverTelaAdmin,2000);
+                    docRef.update("logado", true)
+                            .addOnSuccessListener(aVoid -> Log.d("Login", "Campo 'logado' atualizado com sucesso"))
+                            .addOnFailureListener(e -> Log.e("Login", "Erro ao atualizar 'logado': " + e.getMessage()));
                 }else {
+                    String erro;
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    }catch (Exception e){
+                        erro = "Erro ao logar usuário";
+                    }
+                    Snackbar snackbar = Snackbar.make(v,erro,Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.setAnchorView(criarConta);
+                    snackbar.show();
+                }
+
+                // Continue para mover tela após atualizar o campo
+                if (email.equals("suanne@gmail.com")) {
                     progressBar.setVisibility(View.VISIBLE);
-
-                    new Handler(Looper.getMainLooper()).postDelayed(this::moverParaPrincipal,2000);
+                    new Handler(Looper.getMainLooper()).postDelayed(this::moverTelaAdmin, 2000);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    new Handler(Looper.getMainLooper()).postDelayed(this::moverTelaCliente, 2000);
                 }
-
-            }else {
-                String erro;
-                try {
-                    throw Objects.requireNonNull(task.getException());
-                }catch (Exception e){
-                    erro = "Erro ao logar usuário";
-                }
-                Snackbar snackbar = Snackbar.make(v,erro,Snackbar.LENGTH_SHORT);
-                snackbar.setBackgroundTint(Color.WHITE);
-                snackbar.setTextColor(Color.BLACK);
-                snackbar.setAnchorView(criarConta);
-                snackbar.show();
-            }
+            });
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser usuarioAtual = FirebaseAuth.getInstance().getCurrentUser();
-
-        if(usuarioAtual != null){
-            String email = usuarioAtual.getEmail();
-            if(!Objects.equals(email, "suanne@gmail.com")){
-                moverParaPrincipal();
-            }else {
-                moverTelaAdmin();
-            }
-        }
-    }
 
     private void moverTelaAdmin(){
         Intent intent = new Intent(TelaLogin.this, TelaAdmin.class);
         startActivity(intent);
     }
-    private void moverParaPrincipal(){
-        Intent intent = new Intent(TelaLogin.this, MainActivity.class);
+    private void moverTelaCliente(){
+        Intent intent = new Intent(TelaLogin.this, TelaCliente.class);
         startActivity(intent);
     }
 
