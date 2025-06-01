@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -65,19 +67,21 @@ public class PerfilCliente extends Fragment {
 
             usuarioID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-            DocumentReference docRef = db.collection("usuarios").document(usuarioID);
-            docRef.addSnapshotListener((documentSnapshot, error) -> {
-                if(documentSnapshot != null){
-                    docRef.update("logado", false);
-                }
-            });
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                String uid = user.getUid();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                DocumentReference docRef = db.collection("usuarios").document(uid);
 
+                docRef.update("logado", false)
+                        .addOnSuccessListener(aVoid -> Log.d("Login", "Campo 'logado' atualizado com sucesso"))
+                        .addOnFailureListener(e -> Log.e("Login", "Erro ao atualizar 'logado': " + e.getMessage()));
+            }
             FirebaseAuth.getInstance().signOut();
 
             Intent intent = new Intent(getActivity(), TelaLogin.class);
             startActivity(intent);
             requireActivity().finish();
-
 
         });
 
