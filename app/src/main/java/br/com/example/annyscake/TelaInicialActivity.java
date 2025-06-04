@@ -53,9 +53,6 @@ public class TelaInicialActivity extends AppCompatActivity {
                         moverTelaCliente();
                     }
                     finish();
-                } else {
-                    startActivity(new Intent(this, TelaLogin.class));
-                    finish();
                 }
             }
         });

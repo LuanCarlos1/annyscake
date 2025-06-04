@@ -1,4 +1,4 @@
-package br.com.example.annyscake.ui.statuspedido;
+package br.com.example.annyscake.ui.Admin;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -25,13 +25,20 @@ import java.util.Map;
 import br.com.example.annyscake.R;
 import br.com.example.annyscake.ui.pedido.Pedido;
 
-public class StatusPedido extends Fragment {
 
+public class PedidosAdmin extends Fragment {
+
+    public PedidosAdmin() {
+
+    }
 
     private FirebaseFirestore db;
     private LinearLayout layoutPedidos;
 
-    public StatusPedido() {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
     }
 
@@ -49,12 +56,9 @@ public class StatusPedido extends Fragment {
     private void carregarPedidos() {
         layoutPedidos.removeAllViews();
 
-        String usuarioId = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         CollectionReference pedidosRef = db.collection("pedidos");
         pedidosRef
-                .whereIn("status", Arrays.asList("Pendente", "Aceito"))
-                .whereEqualTo("usuarioId", usuarioId) // ✅ Filtra pelo usuário logado
+                .whereIn("status", Arrays.asList("Pendente", "Aceito")) // ✅ Apenas status, sem filtrar por usuário
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -78,15 +82,21 @@ public class StatusPedido extends Fragment {
                                     + "Massa: " + p.getMassa() + "\n"
                                     + "Recheio: " + p.getRecheio() + "\n"
                                     + "Recheio Especial: " + p.getRecheioEspecial() + "\n"
-                                    + "Valor: R$ " + p.getValor() +"\n"
+                                    + "Valor: R$ " + p.getValor() + "\n"
                                     + "Status: " + p.getStatus().toUpperCase());
                             pedidoLayout.addView(txt);
 
+                            // Botões de ação (somente para admin)
+                            Button btnFinalizar = new Button(requireContext());
+                            btnFinalizar.setText("Aceitar");
+                            pedidoLayout.addView(btnFinalizar);
+
                             Button btnCancelar = new Button(requireContext());
-                            btnCancelar.setText("Cancelar");
+                            btnCancelar.setText("Recusar");
                             pedidoLayout.addView(btnCancelar);
 
-                            btnCancelar.setOnClickListener(v -> confirmarMudancaStatus(docId, "cancelado"));
+                            btnFinalizar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Aceito"));
+                            btnCancelar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Recusado"));
 
                             layoutPedidos.addView(pedidoLayout);
                         }

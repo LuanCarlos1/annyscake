@@ -1,14 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.historicoCliente.HistoricoCliente">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/btnLimparHistorico"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TELA HISTORICO" />
+        android:layout_height="wrap_content"
+        android:text="🧹 Limpar Histórico"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FF6200EE"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="524dp"
+        android:layout_weight="0">
+
+        <LinearLayout
+            android:id="@+id/layoutPedidosFinalizados"
+            style="@style/containerComponents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

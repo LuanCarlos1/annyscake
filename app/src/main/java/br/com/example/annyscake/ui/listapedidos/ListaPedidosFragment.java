@@ -58,16 +58,17 @@ public class ListaPedidosFragment extends Fragment {
 
                     TextView txt = new TextView(requireContext());
                     txt.setText("📦 Pedido:\n"
-                            + "Cliente: " + p.nome + "\n"
-                            + "Telefone: " + p.telefone + "\n"
-                            + "Endereço: " + p.endereco + "\n"
-                            + "Data de Entrega: " + p.data + "\n"
-                            + "Tema: " + p.tema + "\n"
-                            + "Tamanho: " + p.tamanho + "\n"
-                            + "Massa: " + p.massa + "\n"
-                            + "Recheio: " + p.recheio + "\n"
-                            + "Recheio Especial: " + p.recheio_especial + "\n"
-                            + "Valor: R$ " + p.valor);
+                            + "Cliente: " + p.getNome() + "\n"
+                            + "Telefone: " + p.getTelefone() + "\n"
+                            + "Endereço: " + p.getEndereco() + "\n"
+                            + "Data de Entrega: " + p.getDataEntrega() + "\n"
+                            + "Tema: " + p.getTema() + "\n"
+                            + "Tamanho: " + p.getTamanho() + "\n"
+                            + "Massa: " + p.getMassa() + "\n"
+                            + "Recheio: " + p.getRecheio() + "\n"
+                            + "Recheio Especial: " + p.getRecheioEspecial() + "\n"
+                            + "Valor: R$ " + p.getValor()
+                            + "Status: " + p.getStatus());
                     pedidoLayout.addView(txt);
 
                     // Botões

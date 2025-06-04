@@ -70,16 +70,16 @@ public class Historico extends Fragment {
 
                 TextView txtPedido = new TextView(getContext());
                 txtPedido.setText("📦 Pedido " + contador++ + ":\n"
-                        + "Cliente: " + pedido.nome + "\n"
-                        + "Telefone: " + pedido.telefone + "\n"
-                        + "Endereço: " + pedido.endereco + "\n"
-                        + "Data de Entrega: " + pedido.data + "\n"
-                        + "Tema: " + pedido.tema + "\n"
-                        + "Tamanho: " + pedido.tamanho + "\n"
-                        + "Massa: " + pedido.massa + "\n"
-                        + "Recheio: " + pedido.recheio + "\n"
-                        + "Recheio Especial: " + pedido.recheio_especial + "\n"
-                        + "Valor: R$ " + pedido.valor + "\n"
+                        + "Cliente: " + pedido.getNome() + "\n"
+                        + "Telefone: " + pedido.getTelefone() + "\n"
+                        + "Endereço: " + pedido.getEndereco() + "\n"
+                        + "Data de Entrega: " + pedido.getDataEntrega() + "\n"
+                        + "Tema: " + pedido.getTema() + "\n"
+                        + "Tamanho: " + pedido.getTamanho() + "\n"
+                        + "Massa: " + pedido.getMassa() + "\n"
+                        + "Recheio: " + pedido.getRecheio() + "\n"
+                        + "Recheio Especial: " + pedido.getRecheioEspecial() + "\n"
+                        + "Valor: R$ " + pedido.getValor() + "\n"
                         + "Status: " + (status.equals("finalizado") ? "Finalizado ✔️" : "Cancelado ❌"));
 
                 txtPedido.setPadding(16, 16, 16, 16);
