@@ -2,4 +2,4 @@ Anny's Cake
 
 Criador por: Luan Carlos
 
-App para vendas de bolo da confeitaria Anny's Cake
+App para vendas de bolos da confeitaria Anny's Cake
