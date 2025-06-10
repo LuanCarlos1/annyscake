@@ -2,15 +2,4 @@ Anny's Cake
 
 Criador por: Luan Carlos
 
-1 - HOME -> CADASTRO DE PEDIDOS (BOLO):
-
-1.1 -> PEDIDO
-1.2 -> TAMANHO DO BOLO
-1.3 -> O TEMA
-1.4 -> VALOR
-1.5 -> RECHEIO - SABOR MASSA
-1.6 -> NOME DO CLIENTE
-1.7 -> PAGO OU NÃO
-
-2 - LISTAR TODOS OS PEDIDOS:
-2.1 - LISTAR TUDO
+App para vendas de bolo da confeitaria Anny's Cake
