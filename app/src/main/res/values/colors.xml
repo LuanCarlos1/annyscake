@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pink">#FB528B</color>
+    <color name="orange">#FFB344</color>
+    <color name="pink_light">#F899B9</color>
+    <color name="pink_dark">#71364D</color>
+    <color name="fundo_finalizado">#D0F5D8</color> <!-- verde claro -->
+    <color name="fundo_cancelado">#FFD6D6</color>  <!-- vermelho claro -->
+    <color name="gray">#5B5B5B</color>
 </resources>
