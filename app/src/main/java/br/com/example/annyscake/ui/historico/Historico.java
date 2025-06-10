@@ -92,14 +92,12 @@ public class Historico extends Fragment {
     private void limparHistorico() {
         CollectionReference pedidosRef = db.collection("pedidos");
 
-        // Apagar finalizados
         pedidosRef.whereEqualTo("status", "finalizado").get().addOnSuccessListener(querySnapshot -> {
             for (QueryDocumentSnapshot doc : querySnapshot) {
                 pedidosRef.document(doc.getId()).delete();
             }
         });
 
-        // Apagar cancelados
         pedidosRef.whereEqualTo("status", "cancelado").get().addOnSuccessListener(querySnapshot -> {
             for (QueryDocumentSnapshot doc : querySnapshot) {
                 pedidosRef.document(doc.getId()).delete();

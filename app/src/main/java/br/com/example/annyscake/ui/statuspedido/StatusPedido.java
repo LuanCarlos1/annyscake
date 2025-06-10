@@ -54,7 +54,7 @@ public class StatusPedido extends Fragment {
         CollectionReference pedidosRef = db.collection("pedidos");
         pedidosRef
                 .whereIn("status", Arrays.asList("Pendente", "Aceito"))
-                .whereEqualTo("usuarioId", usuarioId) // ✅ Filtra pelo usuário logado
+                .whereEqualTo("usuarioId", usuarioId)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -62,7 +62,6 @@ public class StatusPedido extends Fragment {
                             Pedido p = doc.toObject(Pedido.class);
                             String docId = doc.getId();
 
-                            // Layout do pedido
                             LinearLayout pedidoLayout = new LinearLayout(requireContext());
                             pedidoLayout.setOrientation(LinearLayout.VERTICAL);
                             pedidoLayout.setPadding(16, 16, 16, 16);
@@ -78,7 +77,7 @@ public class StatusPedido extends Fragment {
                                     + "Massa: " + p.getMassa() + "\n"
                                     + "Recheio: " + p.getRecheio() + "\n"
                                     + "Recheio Especial: " + p.getRecheioEspecial() + "\n"
-                                    + "Valor: R$ " + p.getValor() +"\n"
+                                    + "Valor: R$ " + p.getValor() + "\n"
                                     + "Status: " + p.getStatus().toUpperCase());
                             pedidoLayout.addView(txt);
 

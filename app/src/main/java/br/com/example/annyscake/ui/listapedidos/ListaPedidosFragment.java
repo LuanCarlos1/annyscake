@@ -50,11 +50,10 @@ public class ListaPedidosFragment extends Fragment {
                     Pedido p = doc.toObject(Pedido.class);
                     String docId = doc.getId();
 
-                    // Layout do pedido
                     LinearLayout pedidoLayout = new LinearLayout(requireContext());
                     pedidoLayout.setOrientation(LinearLayout.VERTICAL);
                     pedidoLayout.setPadding(16, 16, 16, 16);
-//                    pedidoLayout.setBackgroundColor(Color.parseColor("#FDE4EC"));
+
 
                     TextView txt = new TextView(requireContext());
                     txt.setText("📦 Pedido:\n"
@@ -71,7 +70,7 @@ public class ListaPedidosFragment extends Fragment {
                             + "Status: " + p.getStatus());
                     pedidoLayout.addView(txt);
 
-                    // Botões
+
                     Button btnFinalizar = new Button(requireContext());
                     btnFinalizar.setText("Finalizar");
                     pedidoLayout.addView(btnFinalizar);

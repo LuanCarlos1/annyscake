@@ -2,6 +2,7 @@ package br.com.example.annyscake.ui.Admin;
 
 import android.os.Bundle;
 
+
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -32,6 +34,8 @@ public class InicioAdmin extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -59,17 +63,20 @@ public class InicioAdmin extends Fragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("pedidos")
+                .whereIn("status", Arrays.asList("Pendente", "Aceito")) // Filtra apenas os pedidos desejados
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    int totalPedidos = queryDocumentSnapshots.size(); // Total de documentos
-                    if(totalPedidos > 1){
+                    int totalPedidos = queryDocumentSnapshots.size(); // Apenas "Pendente" ou "Aceito"
+                    if (totalPedidos > 1) {
                         textSaudacao.setText("Você tem " + totalPedidos + " pedidos!");
-                    }else{
-                        textSaudacao.setText("Você tem " + totalPedidos + " pedido!");
-
+                    } else if (totalPedidos == 1) {
+                        textSaudacao.setText("Você tem 1 pedido!");
+                    } else {
+                        textSaudacao.setText("Nenhum pedido pendente ou aceito.");
                     }
                 });
 
         return root;
     }
+
 }

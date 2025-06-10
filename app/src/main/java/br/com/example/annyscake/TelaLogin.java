@@ -110,7 +110,7 @@ public class TelaLogin extends AppCompatActivity {
                     snackbar.show();
                 }
 
-                // Continue para mover tela após atualizar o campo
+
                 if (email.equals("suanne@gmail.com")) {
                     progressBar.setVisibility(View.VISIBLE);
                     new Handler(Looper.getMainLooper()).postDelayed(this::moverTelaAdmin, 2000);

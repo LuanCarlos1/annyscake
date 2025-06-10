@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -66,7 +67,6 @@ public class PedidosAdmin extends Fragment {
                             Pedido p = doc.toObject(Pedido.class);
                             String docId = doc.getId();
 
-                            // Layout do pedido
                             LinearLayout pedidoLayout = new LinearLayout(requireContext());
                             pedidoLayout.setOrientation(LinearLayout.VERTICAL);
                             pedidoLayout.setPadding(16, 16, 16, 16);
@@ -82,27 +82,62 @@ public class PedidosAdmin extends Fragment {
                                     + "Massa: " + p.getMassa() + "\n"
                                     + "Recheio: " + p.getRecheio() + "\n"
                                     + "Recheio Especial: " + p.getRecheioEspecial() + "\n"
-                                    + "Valor: R$ " + p.getValor() + "\n"
+                                    + "Valor: R$ " + p.getValor() + ",00" + "\n"
                                     + "Status: " + p.getStatus().toUpperCase());
                             pedidoLayout.addView(txt);
 
-                            // Botões de ação (somente para admin)
+                            String status = doc.getString("status");
+
                             Button btnFinalizar = new Button(requireContext());
-                            btnFinalizar.setText("Aceitar");
-                            pedidoLayout.addView(btnFinalizar);
-
                             Button btnCancelar = new Button(requireContext());
-                            btnCancelar.setText("Recusar");
-                            pedidoLayout.addView(btnCancelar);
 
-                            btnFinalizar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Aceito"));
-                            btnCancelar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Recusado"));
+                            switch (status.toLowerCase()) {
+                                case "aceito":
+                                    btnFinalizar.setText("Finalizar");
+                                    btnCancelar.setText("Cancelar");
+                                    btnFinalizar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Finalizado"));
+                                    btnCancelar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Cancelado"));
+
+                                    pedidoLayout.addView(btnFinalizar);
+                                    pedidoLayout.addView(btnCancelar);
+                                    break;
+
+                                case "recusado":
+                                case "finalizado":
+                                case "cancelado":
+                                    break;
+
+                                default:
+                                    btnFinalizar.setText("Aceitar");
+                                    btnCancelar.setText("Recusar");
+                                    btnFinalizar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Aceito"));
+                                    btnCancelar.setOnClickListener(v -> confirmarMudancaStatus(docId, "Recusado"));
+
+                                    pedidoLayout.addView(btnFinalizar);
+                                    pedidoLayout.addView(btnCancelar);
+                                    break;
+                            }
 
                             layoutPedidos.addView(pedidoLayout);
                         }
                     }
                 });
     }
+
+
+    private void moverParaHistorico(String docId, Pedido pedido) {
+
+        db.collection("historico_admin")
+                .add(pedido);
+
+        db.collection("historico_clientes")
+                .document(pedido.getUsuarioId())
+                .collection("pedidos")
+                .add(pedido);
+
+        db.collection("pedidos").document(docId).delete();
+    }
+
 
     private void confirmarMudancaStatus(String docId, String novoStatus) {
         new AlertDialog.Builder(requireContext())
@@ -113,12 +148,22 @@ public class PedidosAdmin extends Fragment {
                 .show();
     }
 
-    private void atualizarStatus(String docId, String status) {
-        Map<String, Object> atualizacao = new HashMap<>();
-        atualizacao.put("status", status);
+    private void atualizarStatus(String docId, String novoStatus) {
+        db.collection("pedidos").document(docId).get().addOnSuccessListener(doc -> {
+            Pedido pedido = doc.toObject(Pedido.class);
+            if (pedido != null) {
+                pedido.setStatus(novoStatus);
 
-        db.collection("pedidos").document(docId).update(atualizacao)
-                .addOnSuccessListener(aVoid -> carregarPedidos());
+                db.collection("pedidos").document(docId).update("status", novoStatus)
+                        .addOnSuccessListener(aVoid -> {
+
+                            if (novoStatus.equalsIgnoreCase("Finalizado") || novoStatus.equalsIgnoreCase("Cancelado") || novoStatus.equalsIgnoreCase("Recusado")) {
+                                moverParaHistorico(docId, pedido);
+                            }
+                            carregarPedidos();
+                        });
+            }
+        });
     }
 
     @Override

@@ -20,11 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 
-import br.com.example.annyscake.R;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.com.example.annyscake.databinding.FragmentPedidoClienteBinding;
 import br.com.example.annyscake.ui.pedido.Pedido;
@@ -36,6 +35,18 @@ public class pedidoCliente extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+        Map<String, String> precosTamanhos = new HashMap<>();
+        precosTamanhos.put("12cm - Rende 13 fatias", "60,00");
+        precosTamanhos.put("15cm - Rende 15 a 18 fatias", "80,00");
+        precosTamanhos.put("18cm - Rende 20 a 22 fatias", "120,00");
+        precosTamanhos.put("20cm - Rende 30 a 35 fatias", "140,00");
+        precosTamanhos.put("25cm - Rende 46 a 50 fatias", "190,00");
+        precosTamanhos.put("30cm - Rende 68 a 72 fatias", "310,00");
+        precosTamanhos.put("35cm - Rende 92 a 98 fatias", "450,00");
+        precosTamanhos.put("40cm - Rende 120 a 128 fatias", "550,00");
+
 
         binding = FragmentPedidoClienteBinding.inflate(inflater, container, false);
 
@@ -64,6 +75,8 @@ public class pedidoCliente extends Fragment {
             String valor = binding.txtValorBolo.getText().toString();
             String data = binding.txtDataEntrega.getText().toString();
 
+
+
             if (tema.isEmpty() || valor.isEmpty()
                     || tamanho.equals("Tamanho do Bolo...")
                     || massa.equals("Tipos de Massas...")
@@ -73,7 +86,7 @@ public class pedidoCliente extends Fragment {
                 return;
             }
 
-            // Criar o objeto do pedido
+
             Pedido pedido = new Pedido(nome, telefone, endereco, data, tema, tamanho, massa, recheio, especial, valor, "Pendente", idUsuario);
 
             db.collection("pedidos")
@@ -86,7 +99,7 @@ public class pedidoCliente extends Fragment {
         });
 
 
-        //Spinner com os tamanhos de bolo
+
         Spinner spinnerTamanhos = binding.spinnerOpcoes;
         String[] opcoes = {"Tamanho do Bolo...","12cm - Rende 13 fatias", "15cm - Rende 15 a 18 fatias",
                 "18cm - Rende 20 a 22 fatias", "20cm - Rende 30 a 35 fatias", "25cm - Rende 46 a 50 fatias",
@@ -97,21 +110,24 @@ public class pedidoCliente extends Fragment {
         spinnerTamanhos.setAdapter(adapter);
 
         spinnerTamanhos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 if (position == 0) return;
 
                 String tamanhoSelecionado = opcoes[position];
-                // Faça algo com a opção selecionada
+                String valor = precosTamanhos.get(tamanhoSelecionado);
+                binding.txtValorBolo.setText(valor);
+
             }
 
             @Override
             public void onNothingSelected(@NonNull AdapterView<?> parent) {
-                // Nenhuma opção selecionada
+
             }
         });
 
-        //Spinner com os tipos de massas
+
         Spinner spinnerMassas = binding.spinnerMassas;
         String[] opcoesMassas = {"Tipos de Massas...", "Baunilha", "Chocolate", "Branca"};
 
@@ -125,17 +141,17 @@ public class pedidoCliente extends Fragment {
                 if (position == 0) return;
 
                 String massaSelecionada = opcoesMassas[position];
-                // Faça algo com a opção selecionada
+
             }
 
             @Override
             public void onNothingSelected(@NonNull AdapterView<?> parent) {
-                // Nenhuma opção selecionada
+
             }
         });
 
 
-        //Spinner com os Recheios
+
         Spinner spinnerRecheios = binding.spinnerRecheios;
         String[] opcoesRecheios = {"Tipos de Recheios...", "Beijinho", "Chocolate", "Ninho"};
 
@@ -149,17 +165,17 @@ public class pedidoCliente extends Fragment {
                 if (position == 0) return;
 
                 String recheioSelecionado = opcoesRecheios[position];
-                // Faça algo com a opção selecionada
+
             }
 
             @Override
             public void onNothingSelected(@NonNull AdapterView<?> parent) {
-                // Nenhuma opção selecionada
+
             }
         });
 
 
-        //Spinner com os Recheios Especiais
+
         Spinner spinnerEspeciais = binding.spinnerRecheiosEspeciais;
         String[] opcoesEspeciais = {"Recheios Especiais...", "Abacaxi", "Ameixa", "Amendoin", "Maracujá", "Surpresa de Uva", "Doce de Leite", "Sonho de Valsa"};
 
@@ -173,24 +189,24 @@ public class pedidoCliente extends Fragment {
                 if (position == 0) return;
 
                 String especialSelecionado = opcoesEspeciais[position];
-                // Faça algo com a opção selecionada
+
             }
 
             @Override
             public void onNothingSelected(@NonNull AdapterView<?> parent) {
-                // Nenhuma opção selecionada
+
             }
         });
 
         return binding.getRoot();
     }
 
-    // Spinner com primeira opção inativa e cinza
+
     private ArrayAdapter<String> getStringArrayAdapter(String[] opcoes) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcoes) {
             @Override
             public boolean isEnabled(int position) {
-                return position != 0; // Desativa a posição 0
+                return position != 0;
             }
 
             @Override
@@ -198,9 +214,9 @@ public class pedidoCliente extends Fragment {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
                 if (position == 0) {
-                    tv.setTextColor(Color.GRAY); // cinza para "Selecione..."
+                    tv.setTextColor(Color.GRAY);
                 } else {
-                    tv.setTextColor(Color.BLACK); // preto para opções válidas
+                    tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }

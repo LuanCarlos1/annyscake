@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,8 +43,11 @@ public class HistoricoCliente extends Fragment {
 
         layoutPedidos.removeAllViews();
 
-        carregarPedidos("finalizado");
-        carregarPedidos("cancelado");
+
+        carregarPedidos("Finalizado");
+        carregarPedidos("Cancelado");
+        carregarPedidos("Recusado");
+
 
         btnLimpar.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
@@ -58,66 +62,66 @@ public class HistoricoCliente extends Fragment {
     }
 
     private void carregarPedidos(String status) {
-
-        layoutPedidos.removeAllViews();
-
         String usuarioId = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        CollectionReference pedidosRef = db.collection("pedidos");
+        CollectionReference pedidosRef = db.collection("historico_clientes")
+                .document(usuarioId)
+                .collection("pedidos");
 
-        pedidosRef.whereEqualTo("status", status)
+        pedidosRef
                 .whereEqualTo("usuarioId", usuarioId)
-                .get().addOnSuccessListener(querySnapshot -> {
-            if (!querySnapshot.isEmpty()) {
-                TextView titulo = new TextView(getContext());
-                titulo.setText(status.equals("finalizado") ? "📋 Pedidos Finalizados" : "📋 Pedidos Cancelados");
-                titulo.setTextSize(18);
-                titulo.setPadding(16, 32, 16, 8);
-                layoutPedidos.addView(titulo);
-                btnLimpar.setVisibility(View.VISIBLE);
-            }
+                .whereEqualTo("status", status)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        TextView titulo = new TextView(getContext());
+                        titulo.setText(status.equals("Finalizado") ? "📋 Pedidos Finalizados" :
+                                status.equals("Cancelado") ? "📋 Pedidos Cancelados" :
+                                        "📋 Pedidos Recusados");
+                        titulo.setTextSize(18);
+                        titulo.setPadding(16, 32, 16, 8);
+                        layoutPedidos.addView(titulo);
+                        btnLimpar.setVisibility(View.VISIBLE);
+                    }
 
-            int contador = 1;
-            for (QueryDocumentSnapshot doc : querySnapshot) {
-                Pedido pedido = doc.toObject(Pedido.class);
+                    int contador = 1;
+                    for (QueryDocumentSnapshot doc : querySnapshot) {
+                        Pedido pedido = doc.toObject(Pedido.class);
 
-                TextView txtPedido = new TextView(getContext());
-                txtPedido.setText("📦 Pedido " + contador++ + ":\n"
-                        + "Cliente: " + pedido.getNome() + "\n"
-                        + "Telefone: " + pedido.getTelefone() + "\n"
-                        + "Endereço: " + pedido.getEndereco() + "\n"
-                        + "Data de Entrega: " + pedido.getDataEntrega() + "\n"
-                        + "Tema: " + pedido.getTema() + "\n"
-                        + "Tamanho: " + pedido.getTamanho() + "\n"
-                        + "Massa: " + pedido.getMassa() + "\n"
-                        + "Recheio: " + pedido.getRecheio() + "\n"
-                        + "Recheio Especial: " + pedido.getRecheioEspecial() + "\n"
-                        + "Valor: R$ " + pedido.getValor() + "\n"
-                        + "Status: " + (status.equals("finalizado") ? "Finalizado ✔️" : "Cancelado ❌"));
+                        TextView txtPedido = new TextView(getContext());
+                        txtPedido.setText("📦 Pedido " + contador++ + ":\n"
+                                + "Cliente: " + pedido.getNome() + "\n"
+                                + "Telefone: " + pedido.getTelefone() + "\n"
+                                + "Endereço: " + pedido.getEndereco() + "\n"
+                                + "Data de Entrega: " + pedido.getDataEntrega() + "\n"
+                                + "Tema: " + pedido.getTema() + "\n"
+                                + "Tamanho: " + pedido.getTamanho() + "\n"
+                                + "Massa: " + pedido.getMassa() + "\n"
+                                + "Recheio: " + pedido.getRecheio() + "\n"
+                                + "Recheio Especial: " + pedido.getRecheioEspecial() + "\n"
+                                + "Valor: R$ " + pedido.getValor() + "\n"
+                                        + "Status: " + (status.equals("Finalizado") ? "Finalizado ✔️" :
+                                        status.equals("Cancelado") ? "Cancelado ❌" :
+                                                "Recusado ❌"));
 
-                txtPedido.setPadding(16, 16, 16, 16);
-                txtPedido.setBackgroundColor(Color.parseColor("#FAFAFA"));
-                layoutPedidos.addView(txtPedido);
-            }
-        });
+                        txtPedido.setPadding(16, 16, 16, 16);
+                        txtPedido.setBackgroundColor(Color.parseColor("#FAFAFA"));
+                        layoutPedidos.addView(txtPedido);
+                    }
+                });
     }
 
     private void limparHistorico() {
-        CollectionReference pedidosRef = db.collection("pedidos");
+        String usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        CollectionReference pedidosRef = db.collection("historico_clientes").document(usuarioId).collection("pedidos");
 
-        // Apagar finalizados
-        pedidosRef.whereEqualTo("status", "finalizado").get().addOnSuccessListener(querySnapshot -> {
+        pedidosRef.get().addOnSuccessListener(querySnapshot -> {
             for (QueryDocumentSnapshot doc : querySnapshot) {
-                pedidosRef.document(doc.getId()).delete();
+                String status = doc.getString("status");
+                if (status != null && (status.equals("Finalizado") || status.equals("Cancelado") || status.equals("Recusado"))) {
+                    pedidosRef.document(doc.getId()).delete();
+                }
             }
-        });
-
-        // Apagar cancelados
-        pedidosRef.whereEqualTo("status", "cancelado").get().addOnSuccessListener(querySnapshot -> {
-            for (QueryDocumentSnapshot doc : querySnapshot) {
-                pedidosRef.document(doc.getId()).delete();
-            }
-
             layoutPedidos.removeAllViews();
             btnLimpar.setVisibility(View.GONE);
         });

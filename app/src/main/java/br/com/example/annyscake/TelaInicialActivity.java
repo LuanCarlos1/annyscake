@@ -2,6 +2,8 @@ package br.com.example.annyscake;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,42 +31,50 @@ public class TelaInicialActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            // Usuário não está logado, vá para tela de login
-            startActivity(new Intent(this, TelaLogin.class));
-            finish();
-            return;
-        }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-        String idUsuario = auth.getUid();
-        String email = auth.getCurrentUser().getEmail();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        assert idUsuario != null;
-        DocumentReference docRef = db.collection("usuarios").document(idUsuario);
-        docRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                Boolean logado = documentSnapshot.getBoolean("logado");
-                if (logado != null && logado) {
-                    if ("suanne@gmail.com".equals(email)) {
-                        moverTelaAdmin();
-                    } else {
-                        moverTelaCliente();
-                    }
-                    finish();
-                }
+
+            if (auth.getCurrentUser() == null) {
+
+                startActivity(new Intent(this, TelaLogin.class));
+                finish();
+                return;
             }
-        });
+
+            String idUsuario = auth.getUid();
+            String email = auth.getCurrentUser().getEmail();
+
+            assert idUsuario != null;
+            DocumentReference docRef = db.collection("usuarios").document(idUsuario);
+            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    Boolean logado = documentSnapshot.getBoolean("logado");
+                    if (logado != null && logado) {
+                        if ("suanne@gmail.com".equals(email)) {
+                            moverTelaAdmin();
+                        } else {
+                            moverTelaCliente();
+                        }
+                        finish();
+                    }
+                }
+            });
+
+            // Adicionar transição suave opcional
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }, 3000);
+
+
     }
 
     private void moverTelaAdmin(){
-        Intent intent = new Intent(this, TelaAdmin.class);
-        startActivity(intent);
+        startActivity(new Intent(this, TelaAdmin.class));
     }
     private void moverTelaCliente(){
-        Intent intent = new Intent(this, TelaCliente.class);
-        startActivity(intent);
+        startActivity(new Intent(this, TelaCliente.class));
     }
 }
 

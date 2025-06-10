@@ -12,10 +12,10 @@ public class Pedido {
     private String recheioEspecial;
     private String valor;
     private String status;
-    private String usuarioId; // ✅ Novo campo
+    private String usuarioId;
 
     public Pedido() {
-        // Construtor vazio necessário para Firestore
+
     }
 
     public Pedido(String nome, String telefone, String endereco, String dataEntrega,
